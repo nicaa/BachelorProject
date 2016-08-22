@@ -1,0 +1,12 @@
+﻿@model Garia.Models.MessageModel
+
+@{
+    ViewBag.Title = "SentMessages";
+}
+<div class="col-md-10">
+    <h2>Sent Messages</h2>
+
+    <div id="MessageListSent">
+        @Html.Partial("_SentMessages", Model.MessageListSent)
+    </div>
+</div>

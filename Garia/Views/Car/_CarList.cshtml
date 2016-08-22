@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Garia.Core.Entities.Car>
+
+
+<div class="table-responsive">
+    <table class="table table-hover tablecss">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarType)
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarType)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

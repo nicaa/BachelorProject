@@ -1,0 +1,14 @@
+﻿@model Garia.Models.MessageModel
+@using Garia.Core.Entities;
+
+@{
+    ViewBag.Title = "Messages";
+}
+<div class="col-md-10">
+    <h2>Messages</h2>
+
+
+    <div id="MessageList">
+        @Html.Partial("_MessageList", Model.MessageList)
+    </div>
+</div>

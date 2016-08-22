@@ -1,0 +1,37 @@
+﻿@model DealerGraphModel
+@using Garia.Models
+@using Garia.Core.Entities
+
+@{
+    ViewBag.Title = "BudgetSalesDealer";
+}
+
+
+@using (Ajax.BeginForm("BudgetSalesDealer", new AjaxOptions
+    {
+
+        HttpMethod = "POST",
+        UpdateTargetId = "DealerId",
+        OnComplete = "location.reload()"
+
+    }))
+{
+    <div class="form-group form-group-attached">
+
+        <div class="col-md-10">
+            <label>Choose dealer</label>
+            <select class="form-control" name="DealerId" id="DealerId">
+                @foreach (Dealer dealer in Model.Dealers)
+                {
+                    <option value="@dealer.DealerId">@dealer.DealerName</option>
+                }
+
+            </select>
+            <input type="submit" value="Get" class="btn btn-default" style="margin-top:4px" />
+        </div>
+    </div>
+}
+
+<div id="DealerId">
+    @Html.Partial("_GraphDealer", Model.Dealer)
+</div>

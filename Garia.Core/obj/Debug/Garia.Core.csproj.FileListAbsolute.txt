@@ -1,0 +1,12 @@
+C:\Users\Nichlas\Documents\Visual Studio 2013\Projects\Garia\Garia.Core\bin\Debug\Garia.Core.dll
+C:\Users\Nichlas\Documents\Visual Studio 2013\Projects\Garia\Garia.Core\bin\Debug\Garia.Core.pdb
+C:\Users\Nichlas\Documents\Visual Studio 2013\Projects\Garia\Garia.Core\bin\Debug\BLToolkit.4.dll
+C:\Users\Nichlas\Documents\Visual Studio 2013\Projects\Garia\Garia.Core\obj\Debug\Garia.Core.csprojResolveAssemblyReference.cache
+C:\Users\Nichlas\Documents\Visual Studio 2013\Projects\Garia\Garia.Core\obj\Debug\Garia.Core.dll
+C:\Users\Nichlas\Documents\Visual Studio 2013\Projects\Garia\Garia.Core\obj\Debug\Garia.Core.pdb
+C:\Users\Nichlas\Source\Workspaces\GariaSchoolProject\Garia\Garia.Core\bin\Debug\Garia.Core.dll
+C:\Users\Nichlas\Source\Workspaces\GariaSchoolProject\Garia\Garia.Core\bin\Debug\Garia.Core.pdb
+C:\Users\Nichlas\Source\Workspaces\GariaSchoolProject\Garia\Garia.Core\bin\Debug\BLToolkit.4.dll
+C:\Users\Nichlas\Source\Workspaces\GariaSchoolProject\Garia\Garia.Core\obj\Debug\Garia.Core.dll
+C:\Users\Nichlas\Source\Workspaces\GariaSchoolProject\Garia\Garia.Core\obj\Debug\Garia.Core.pdb
+C:\Users\Nichlas\Source\Workspaces\GariaSchoolProject\Garia\Garia.Core\obj\Debug\Garia.Core.csprojResolveAssemblyReference.cache

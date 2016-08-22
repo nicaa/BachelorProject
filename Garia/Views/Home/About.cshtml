@@ -1,0 +1,24 @@
+﻿@model PagedList.IPagedList<Person>
+@using Garia.Core.Entities;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row">
+    @{
+        foreach (Person p in Model)
+        {
+            <div class="col-md-4">
+                <h2>@p.Fname  @p.Lname</h2>
+            </div>
+        }
+    }
+</div>
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("About", new { page, pagesize = Model.PageSize }))
+
+</div>
+

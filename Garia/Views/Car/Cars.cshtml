@@ -1,0 +1,60 @@
+﻿@model CarModel
+@using Garia.Models
+
+@{
+    ViewBag.Title = "Cars";
+}
+
+<h2>Cars</h2>
+<button class="btn btn-default" id="CreateBtn" type="button">
+    Create Car
+    <span class="glyphicon glyphicon-chevron-down"></span>
+</button>
+<div id="CreateCar" style="display:none">
+    <div style="margin-left: 1%">
+        @using (Ajax.BeginForm("CreateCar", new AjaxOptions
+    {
+
+        HttpMethod = "POST",
+        UpdateTargetId = "CarList",
+        OnComplete = "OnComplete"
+
+    }))
+        {
+            <div class="row" style="margin-top:1%">
+                <div class="col-md-10">
+                    <div class="form-group form-group-attached">
+                        <label class="control-label">Create a new car</label><br />
+                        @Html.LabelFor(model => model.car.CarType, new { @class = "control-label" })
+                        <div>
+                            @Html.EditorFor(model => model.car.CarType)
+                            @Html.ValidationMessageFor(model => model.car.CarType)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <button class="btn btn-default" type="submit">Create</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<div id="CarList">
+    @Html.Partial("_CarList", Model.CarList)
+</div>
+
+<script src="/Content/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#CreateBtn').click(function () {
+            $('#CreateCar').toggle('1500');
+        });
+    });
+    function OnComplete() {
+        ShowMessage("Created");
+    }
+</script>

@@ -1,0 +1,32 @@
+﻿@model Garia.Core.Entities.Message
+
+@using (Html.BeginForm("ViewMessageReply","Message",FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.RecieverId)
+    @Html.HiddenFor(model => model.SenderId)
+    @Html.HiddenFor(model => model.Title)
+    
+<div class="container-fluid container-fixed-lg">
+    <div class="panel panel-transparent">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading separator" style="background-color:white">
+                            <div class="panel-title">
+                                Reply to @Model.SenderFname @Model.SenderLname
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <textarea name="MessageText" id="message" placeholder="Write Reply" required=""></textarea>
+                                <br />
+                                <input type="submit" value="Reply" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

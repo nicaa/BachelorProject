@@ -1,0 +1,72 @@
+﻿@model List<GariaTask>
+@using Garia.Models
+@using Garia.Core.Entities
+
+@foreach (GariaTask item in Model)
+{
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading TaskTabHead">
+                <div class="TaskTabHeadFontcolor">
+                    <div class="circle" style="background-color: @item.Color; "></div>
+                    @item.Title
+                    @if (item.Completed == 0)
+                    {
+                        <div style="float:right">Days left:@item.DaysLeft</div>
+                    }
+
+                </div>
+            </div>
+            <div class="panel-body TaskTabInfo">
+                <div class="col-md-6">
+                    To @item.CreatorName<br />
+                    Created @item.DateCreated.ToShortDateString()<br />
+                    Deadline @item.CompletionDate.ToShortDateString()
+                </div>
+
+            </div>
+            <div class="panel-body TaskTabBody">
+                @item.Description
+            </div>
+            <div class="panel-body ">
+                <div class="">
+
+                    @if (item.Confirmed == 0)
+                    {
+                        <text>Not Confirmed</text> <br />
+                    }
+                    else
+                    {
+                        <i class="fa fa-thumbs-up TaskconfirmIcon" title="This Task has been confirmed" aria-hidden="true"></i><br />
+                    }
+                    @if (item.Completed == 0)
+                    {
+                        <text>Not Completed</text><br />
+                    }
+                    else
+                    {
+                        <i class="fa fa-check TaskconfirmIcon" title="This Task has been Completed" aria-hidden="true"></i><br />
+                    }
+                    <br />
+                    @if (@item.Confirmed == 0 && @item.Completed == 0)
+                    {
+                        <div>
+                            @using (@Html.BeginForm("EditTask", "Task", new { TaskId = item.TaskId }))
+                            {
+                            <input type="submit" class="btn btn-default" value="Edit Task" />
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            You can't Edit a task when it is confirmed or completed
+                        </div>
+                    }
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

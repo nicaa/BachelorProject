@@ -1,0 +1,36 @@
+﻿@model  SaleManagerGraphModel
+@using Garia.Models
+@using Garia.Core.Entities
+
+@{
+    ViewBag.Title = "BudgetSales";
+}
+
+@using (Ajax.BeginForm("BudgetSalesId", new AjaxOptions
+    {
+
+        HttpMethod = "POST",
+        UpdateTargetId = "SaleId",
+        OnComplete = "location.reload()"
+
+    }))
+{
+<div class="form-group form-group-attached">
+
+    <div class="col-md-10">
+        <label>Choose sale manager</label>
+        <select class="form-control" name="EmployeeId" id="EmployeeId">
+            @foreach (Employee employee in Model.Employees)
+            {
+                <option value="@employee.EmployeeId">@employee.Fname @employee.Lname</option>
+            }
+            
+        </select>
+        <input type="submit" value="Get" class="btn btn-default" style="margin-top: 4px" />
+    </div>
+</div>
+}
+
+<div id="SaleId">
+    @Html.Partial("_GraphSalesManager", Model.employee)
+</div>

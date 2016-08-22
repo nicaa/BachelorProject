@@ -1,0 +1,13 @@
+﻿@model TaskModel
+@using Garia.Models
+@using Garia.Core.Entities
+@{
+    ViewBag.Title = "CreatedTask";
+}
+
+<h2>CreatedTask</h2>
+<div class="col-md-8">
+    <div id="TaskDiv">
+        @Html.Partial("_TaskComponetNobtns", @Model.TaskList)
+    </div>
+</div>

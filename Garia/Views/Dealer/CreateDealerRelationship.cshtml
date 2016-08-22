@@ -1,0 +1,56 @@
+﻿@model Garia.Models.DealerRelationshipModel
+@using Garia.Core.Entities
+
+@{
+    ViewBag.Title = "CreateDealerRelationship";
+}
+
+
+@Html.ActionLink("Return  To Dealers", "Dealers", null, new { @class = "btn btn-default" })
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Create a relationship between a dealer and employee</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Choose Employee</label>
+            <div class="col-md-10">
+
+                <select class="form-control" name="EmployeeId" id="EmployeeId">
+                    @foreach (Employee employee in Model.Employees)
+                    {
+                        <option value="@employee.EmployeeId">@employee.Fname @employee.Lname</option>
+                    }
+                </select>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Choose Dealer</label>
+            <div class="col-md-10">
+
+                <select class="form-control" name="DealerId" id="DealerId">
+                    @foreach (Dealer dealer in Model.Dealers)
+                    {
+                        <option value="@dealer.DealerId">@dealer.DealerName</option>
+                    }
+                </select>
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+

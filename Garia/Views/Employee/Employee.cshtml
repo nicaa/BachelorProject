@@ -1,0 +1,127 @@
+﻿@model Garia.Models.EmployeeModel
+@using Garia.Core.Entities
+@{
+    ViewBag.Title = "Employee";
+}
+
+
+<h2>Employee</h2>
+<button class="btn btn-default" id="CreateBtn" type="button">
+    Create Employee
+    <span class="glyphicon glyphicon-chevron-down"></span>
+</button>
+<div id="CreateEmployee" style="display:none">
+    <div style="margin-left: 2%">
+        @using (Ajax.BeginForm("CreateEmployee", new AjaxOptions
+        {
+
+            HttpMethod = "POST",
+            UpdateTargetId = "EmployeeList",
+            OnComplete = "OnComplete"
+
+        }))
+        {
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group form-group-attached">
+                        <label class="control-label">Create a new Employee</label><br />
+                        @Html.LabelFor(model => model.employee.Fname, new { @class = "control-label" })
+                        <div>
+                            @Html.EditorFor(model => model.employee.Fname)
+                            @Html.ValidationMessageFor(model => model.employee.Fname)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group form-group-attached">
+                        @Html.LabelFor(model => model.employee.Lname, new { @class = "control-label" })
+                        <div>
+                            @Html.EditorFor(model => model.employee.Lname)
+                            @Html.ValidationMessageFor(model => model.employee.Lname)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group form-group-attached">
+                        @Html.LabelFor(model => model.employee.Email, new { @class = "control-label" })
+                        <div>
+                            @Html.EditorFor(model => model.employee.Email)
+                            @Html.ValidationMessageFor(model => model.employee.Email)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group form-group-attached">
+                        @Html.LabelFor(model => model.employee.Password, new { @class = "control-label" })
+                        <div>
+                            @Html.EditorFor(model => model.employee.Password)
+                            @Html.ValidationMessageFor(model => model.employee.Password)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group form-group-attached ">
+                        @Html.LabelFor(model => model.employee.Budget, new { @class = "control-label" })
+
+                        <div>
+                            @Html.EditorFor(model => model.employee.Budget)
+                            @Html.ValidationMessageFor(model => model.employee.Budget)
+                            <label class="col-md-10">If role is "<span style="color: #31b0d5">Employee</span>" budget will not count</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group form-group-attached">
+                        @Html.LabelFor(model => model.employee.RoleId, new { @class = "control-label" })
+                        <div>
+                            <select class="form-control" name="RoleId" id="RoleId">
+                                @foreach (Role Roles in Model.Roles)
+                                {
+                                    <option value="@Roles.RoleId">@Roles.Name</option>
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group">
+                    <button class="btn btn-default" type="submit">Create</button>
+                </div>
+            </div>
+
+
+
+
+
+        }
+    </div>
+</div>
+<div id="EmployeeList">
+    @Html.Partial("_EmployeeList", Model.EmployeeList)
+</div>
+<script src="/Content/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#CreateBtn').click(function () {
+            $('#CreateEmployee').toggle('1500');
+        });
+    });
+    function OnComplete() {
+        ShowMessage("Created");
+    }
+</script>

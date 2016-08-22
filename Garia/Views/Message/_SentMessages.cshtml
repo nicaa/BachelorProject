@@ -1,0 +1,49 @@
+﻿@model PagedList.IPagedList<Message>
+@using Garia.Core.Entities
+@using PagedList.Mvc;
+
+<div class="table-responsive">
+    <table class="table table-hover tablecss">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Message
+            </th>
+            <th>
+                To
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MessageText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecieverFname)
+                    @Html.DisplayFor(modelItem => item.RecieverLname)
+                </td>
+                <td></td>
+              
+            </tr>
+        }
+
+    </table>
+</div>
+<div style="text-align: center">
+    @Html.PagedListPager(Model, page => Url.Action("SentMessages", new { page, pagesize = Model.PageSize }))
+
+</div>

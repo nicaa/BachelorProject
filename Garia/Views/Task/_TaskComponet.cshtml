@@ -1,0 +1,106 @@
+﻿@model List<GariaTask>
+@using Garia.Models
+@using Garia.Core.Entities
+
+
+@foreach (GariaTask item in Model)
+{
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading TaskTabHead">
+                <div class="TaskTabHeadFontcolor">
+                    <div class="circle" style="background-color: @item.Color; "></div>
+                    @item.Title
+                    @if (item.Completed == 0)
+                    {
+                        <div style="float:right">Days left:@item.DaysLeft</div>
+                    }
+
+                </div>
+            </div>
+            <div class="panel-body TaskTabInfo">
+                <div class="col-md-6">
+                    From @item.Sendername<br />
+                    @if (item.Completed == 0)
+                    {
+                        <div>
+                            Created @item.DateCreated.ToShortDateString()<br />
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            Completed @item.DateCompleted.ToShortDateString()<br />
+                        </div>
+                    }
+
+                    @if (@item.DaysLeft < 0 && item.Completed == 0)
+                    {
+                        <div style="color: #f66868">
+                            Deadline @item.CompletionDate.ToShortDateString()
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            Deadline @item.CompletionDate.ToShortDateString()
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <div class="panel-body TaskTabBody">
+                @item.Description
+            </div>
+            <div class="panel-body TaskTabFootoer">
+                <div class="">
+
+
+                    @if (item.Confirmed == 0)
+                    {
+                        using (Ajax.BeginForm("ConfirmTaskAjax", new { TaskId = item.TaskId, SenderId = item.SenderId, Title = item.Title }, new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "TaskDiv",
+                            OnComplete = "confirm"
+                        }))
+                        {
+                            <input type="submit" class="btn btn-default Taskbtn" value="Confirm Task" />
+                        }
+                    }
+                    else
+                    {
+                        <i class="fa fa-thumbs-up TaskconfirmIcon" title="This Task has been confirmed" aria-hidden="true"></i>
+                    }
+                    @if (item.Completed == 0)
+                    {
+                        using (Ajax.BeginForm("CompleteTaskAjax", new { TaskId = item.TaskId, SenderId = item.SenderId, Title = item.Title }, new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "TaskDiv",
+                            OnComplete = "complete"
+                        }))
+                        {
+                            <input type="submit" class="btn btn-default Taskbtn" value="Complete Task" />
+                        }
+                    }
+                    else
+                    {
+                        <i class="fa fa-check TaskconfirmIcon" title="This Task has been Completed" aria-hidden="true"></i>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    function confirm() {
+        ShowMessage('Task Confirmed');
+    }
+    function complete() {
+        ShowMessage('Task Completed');
+    }
+</script>

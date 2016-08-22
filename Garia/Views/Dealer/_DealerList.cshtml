@@ -1,0 +1,31 @@
+﻿@model PagedList.IPagedList<DealerRelationship>
+@using PagedList.Mvc;
+@using Garia.Core.Entities
+
+
+<div class="table-responsive">
+    <table class="table table-hover tablecss">
+        <thead>
+            <tr>
+                <th>Sale Managers</th>
+                <th>Dealer</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (DealerRelationship s in Model)
+                {
+                    <tr>
+                        <td>
+                            <span><a href="javascript:DeleteRelationship(@s.DealerAssignId)" class="glyphicon glyphicon-trash"></a></span>
+
+                            @s.Fname @s.Lname
+                        </td>
+                        <td>@s.DealerName</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

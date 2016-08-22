@@ -1,0 +1,19 @@
+﻿@model TaskModel
+@using Garia.Models
+@using Garia.Core.Entities
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="col-md-8">
+
+    <div id="TaskDiv">
+        @Html.Partial("_TaskComponet", @Model.TaskList)
+    </div>
+
+</div>
+
+

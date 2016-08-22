@@ -1,0 +1,73 @@
+﻿@model PagedList.IPagedList<Sale>
+@using PagedList.Mvc;
+@using Garia.Core.Entities
+
+
+<div id="SaleDiv">
+    <div class="table-responsive">
+        <table class="table table-hover tablecss">
+            <thead>
+                <tr>
+                    <th>
+                        @Ajax.ActionLink("Date", "SaleLogSort", new { sortingCriteria = ViewBag.Date },
+                        new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "sortingDiv" })
+
+                    </th>
+                    <th>
+                        @Ajax.ActionLink("Order NO", "SaleLogSort", new { sortingCriteria = ViewBag.OrderNO },
+                        new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "sortingDiv" })
+                    </th>
+                    <th>
+                        @Ajax.ActionLink("Sales Manager", "SaleLogSort", new { sortingCriteria = ViewBag.SalesManager },
+                        new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "sortingDiv" })
+                    </th>
+                    <th>
+                        @Ajax.ActionLink("Dealer", "SaleLogSort", new { sortingCriteria = ViewBag.Dealer },
+                        new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "sortingDiv" })
+                    </th>
+                    <th>
+                        @Ajax.ActionLink("Car Type", "SaleLogSort", new { sortingCriteria = ViewBag.CarType },
+                        new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "sortingDiv" })
+                    </th>
+                    <th>
+                        @Ajax.ActionLink("Status", "SaleLogSort", new { sortingCriteria = ViewBag.Status },
+                        new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "sortingDiv" })
+                    </th>
+                    <th>
+                        @Ajax.ActionLink("Price", "SaleLogSort", new { sortingCriteria = ViewBag.Price },
+                        new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "sortingDiv" })
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (Sale s in Model)
+                    {
+                        <tr>
+                            <td class="tablepadding">@s.Date.ToShortDateString()</td>
+                            <td class="tablepadding">@s.SaleId</td>
+                            <td class="tablepadding">
+                                @if (Convert.ToInt32(User.Identity.Name) == @s.EmployeeId)
+                                {
+                                    <span><a href="javascript:DeleteSale(@s.SaleId)" class="glyphicon glyphicon-trash"></a></span>
+                                    <a href="@Url.Action("EditSale", "Sale", new { Id = s.SaleId})">
+                                        <span><i class="fa fa-edit"></i></span>
+                                    </a>
+
+                                }
+                                @s.Fname @s.Lname
+                            </td>
+                            <td class="tablepadding">@s.DealerName</td>
+                            <td class="tablepadding">@s.CarType</td>
+                            <td class="tablepadding">@s.Status</td>
+                            <td class="tablepadding">$@s.Price.ToString("N0")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

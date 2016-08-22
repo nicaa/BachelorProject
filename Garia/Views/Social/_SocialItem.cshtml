@@ -1,0 +1,111 @@
+﻿@model Social
+@using Garia.Core.Entities
+@using Garia.Models
+<!-- START ITEM -->
+
+<div class="item share share-self col1" data-social="item">
+    <div class="item-header clearfix">
+        <div class="user-pic">
+            <img alt="Profile Image" width="33" height="33" data-src-retina="/Content/img/profiles/avatar.png" data-src="/Content/img/profiles/avatar.png" src="/Content/img/profiles/avatar.png">
+
+        </div>
+
+        @Model.Fname @Model.Lname
+        @if (Convert.ToInt32(User.Identity.Name) == @Model.EmployeeId)
+        {
+            <span><a href="javascript:DeleteSocial(@Model.SocialId)" class="glyphicon glyphicon-trash pull-right" style="color: #7f7f7f; "></a></span>
+        }
+        <h6>
+            @String.Format("{0:d MMM yyyy, HH:mm}", Model.Date) <br />
+            <p style="margin-left: 15%">@TimeAgo.getTimeAgo(Model.Date.ToUniversalTime())</p>
+        </h6>
+
+    </div>
+    <div class="item-description">
+
+        <p>@Model.Text</p>
+
+        @if (@Model.ImagePath != "")
+        {
+            <img src="~/Images/@Model.ImagePath" />
+        }
+
+
+        @foreach (Comment post in Model.Comments)
+        {
+            if (post.CommentText != "")
+            {
+                <hr>
+                <p><b>@String.Format("{0:d MMM yyyy, HH:mm}", post.Date) @post.EmployeeName</b></p>
+                <p>@post.CommentText</p>
+            }
+        }
+        <p>
+            <h6 style="color: grey">
+
+                @foreach (Like like in Model.LikeList)
+                {
+
+                    @like.Fname @Html.Raw(" ") @like.Lname@Html.Raw(", ")
+
+                }
+                @if (Model.LikeList.Count > 0)
+                {
+                    @Html.Raw("likes this.")
+                }
+            </h6>
+
+        </p>
+
+        @using (Ajax.BeginForm("SocialComment", "Social", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "social-list", OnComplete = "reload" }))
+        {
+            @Html.HiddenFor(x => Model.SocialId)
+            @Html.HiddenFor(x => Model.Fname)
+            @Html.HiddenFor(x => Model.Lname)
+
+            <input id="Text" name="commentText" type="text" style=" width: 100%" required/>
+            <button type="submit" class="btn btn-primary" style="float:left; margin-top: 5px; margin-bottom: 5px; background:none; border:none ">
+                <span style="color: #7f7f7f">
+                    <span class="glyphicon glyphicon-comment" style="top: 3px;"></span> Comment
+                </span>
+            </button>
+        }
+
+        @using (Ajax.BeginForm("SocialLike", "Social", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "social-list", OnComplete = "reload" }))
+        {
+            @Html.HiddenFor(x => Model.SocialId)
+
+    <button type="submit" class="btn btn-primary" style="float: right; margin-top: 5px; margin-bottom: 5px; background:none; border:none;">
+        <span style="color:#7f7f7f">
+            Like
+            <span class="glyphicon glyphicon-thumbs-up" style="top: 3px;"></span>
+            (@Model.Likes)
+        </span> 
+    </button>
+
+        }
+
+
+        @{/*
+
+            foreach (Like like in Model.LikeList)
+            {
+                //Fix this only like and dislike the post when it is your like
+                if (like.SocialId == Model.SocialId && like.EmployeeId == Convert.ToInt32(User.Identity.Name))
+                {
+
+                    using (Ajax.BeginForm("SocialDisLike", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "social-list", OnComplete = "reload" }))
+                    {
+                        @Html.HiddenFor(x => Model.SocialId)
+
+                        <button type="submit" class="btn btn-primary" style="float: right; margin-top: 5px; margin-bottom: 5px; margin-right: 3px">
+                            <span class="glyphicon glyphicon-thumbs-down" style="top: 3px;"></span>
+
+                        </button>
+                    }
+                }
+
+            }*/
+        }
+    </div>
+</div>

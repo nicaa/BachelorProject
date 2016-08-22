@@ -1,0 +1,39 @@
+﻿@model Garia.Core.Entities.Message
+
+@{
+    ViewBag.Title = "ViewMessage";
+}
+
+<div class="container-fluid container-fixed-lg">
+    <div class="panel panel-transparent">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>Message</h4>
+                    <div class="panel panel-default">
+                        <div class="panel-heading separator" style="background-color:white">
+                            <div class="panel-title">
+                                From: @Html.DisplayFor(model => model.SenderFname) @Html.DisplayFor(model => model.SenderLname) <br />
+                                Date: @Html.DisplayFor(model => model.Date)
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                           
+                            <span class="bold">Title: @Html.DisplayFor(model => model.Title)</span> 
+                            
+                            <p> <br />@Html.DisplayFor(model => model.MessageText)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="MessageReply">
+    @Html.Partial("_ViewMessageReply", Model)
+</div>
+
+<p>
+    @Html.ActionLink("Back to Inbox", "Messages")
+</p>

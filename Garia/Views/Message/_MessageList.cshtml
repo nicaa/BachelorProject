@@ -1,0 +1,77 @@
+﻿@model PagedList.IPagedList<Message>
+@using Garia.Core.Entities
+@using PagedList.Mvc;
+<p>
+    @Html.ActionLink("New Message", "Create")
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover tablecss">
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                From
+            </th>
+            <th>
+                Date
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            @if (item.MessageRead == 1)
+            {
+                <td >
+                  @Html.ActionLink(item.Title, "ViewMessage", new { messageId = item.MessageId}) 
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SenderFname)
+                    @Html.DisplayFor(modelItem => item.SenderLname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+            }
+            else
+            {
+
+                <td>
+                    <b>@Html.ActionLink(item.Title, "ViewMessage", new { messageId = item.MessageId }) </b>
+                </td>
+                <td>
+                    <b>
+                        @Html.DisplayFor(modelItem => item.SenderFname)
+                        @Html.DisplayFor(modelItem => item.SenderLname)
+                    </b>
+                </td>
+                <td>
+                    <b> @Html.DisplayFor(modelItem => item.Date)</b>
+                </td>
+
+            }
+            <td></td>
+            <td>
+                @using (Ajax.BeginForm("DeleteMessage", new { page = Model.PageNumber, pagesize = Model.PageSize, messageId = item.MessageId }, new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                UpdateTargetId = "MessageList",
+                                OnComplete = "OnComplete"
+                            }))
+                {
+                    <button class="btn btn-default" style="margin:0px" type="submit">Delete</button>
+                }
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>
+    <div style="text-align: center">
+        @Html.PagedListPager(Model, page => Url.Action("Messages", new { page, pagesize = Model.PageSize }))
+
+    </div>

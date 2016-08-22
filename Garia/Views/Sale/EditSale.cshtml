@@ -1,0 +1,86 @@
+﻿@model CreateSaleModel
+@using Garia.Models
+@using Garia.Core.Entities
+
+@{
+    ViewBag.Title = "EditSale";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="panel-body ">
+        <div class="form-horizontal">
+            <h4>Sale @ViewBag.Sale</h4>
+            @Html.HiddenFor(model => model.Sale.SaleId)
+            <hr />
+            @Html.ValidationSummary(true)
+
+            <div class="form-group form-group-attached">
+                @Html.LabelFor(model => model.Sale.Price, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Sale.Price, new { @Value = 0 })
+                    @Html.ValidationMessageFor(model => model.Sale.Price)
+                </div>
+            </div>
+
+            <div class="form-group form-group-attached">
+                @Html.LabelFor(model => model.Sale.Date, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Sale.Date, new { htmlAttributes = new { @class = "datepicker" } })
+                    @Html.ValidationMessageFor(model => model.Sale.Date)
+                </div>
+            </div>
+
+            <div class="form-group form-group-attached">
+                @Html.LabelFor(model => model.Sale.Status, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Sale.Status)
+                    @Html.ValidationMessageFor(model => model.Sale.Status)
+                </div>
+            </div>
+
+            <div class="form-group form-group-attached">
+                <label class="control-label col-md-2">Car Type</label>
+                <div class="col-md-10">
+
+                    <select class="form-control" name="CarId" id="CarId">
+                        @foreach (Car car in Model.car)
+                        {
+                            <option value="@car.CarId">@car.CarType</option>
+                        }
+                        <option selected="" value="@Model.Sale.CarId">@Model.Sale.CarType</option>
+
+                    </select>
+
+                </div>
+            </div>
+
+
+
+            <div class="form-group form-group-attached">
+                <label class="control-label col-md-2">Dealers</label>
+                <div class="col-md-10">
+                    <select class="form-control" name="DealerId" id="DealerId">
+                        @foreach (Dealer dealer in Model.dealer)
+                        {
+                            <option value="@dealer.DealerId">@dealer.DealerName</option>
+                        }
+                        <option selected="" value="@Model.Sale.DealerId">@Model.Sale.DealerName</option>
+
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Edit Sale" class="btn btn-default" />
+                    @Html.ActionLink("Go To Sale Log", "SaleLog", null, new { @class = "btn btn-default" })
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+}

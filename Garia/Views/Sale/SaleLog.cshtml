@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<Sale>
+@using PagedList.Mvc;
+@using Garia.Core.Entities
+@using Garia.Models
+
+@{
+    ViewBag.Title = "SaleLog";
+}
+
+
+
+<div class="form-group col-md-10" >
+    @Html.ActionLink("New Sale", "CreateSale", null, new { @class = "btn btn-default" })
+</div>
+    
+
+@using (Ajax.BeginForm("SaleLogSort", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "sortingDiv",
+        OnComplete = "OnComplete"
+    }))
+    {
+        <div class="form-group" style="margin-top: 20px">
+            <label class="control-label col-md-3">Search By Dealer</label>
+
+            <div class="col-md-10">
+                <input type="text" name="SearchString" id="SearchString"  />
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        </div>
+    }
+<div id="sortingDiv">
+    @Html.Partial("_SaleTable", Model)
+</div>
+
+
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("SaleLog", new { page, pagesize = Model.PageSize }))
+
+</div>
+<script>
+    function DeleteSale(SaleId) {
+        $.ajax({
+            type: "POST",
+            url: "/Sale/DeleteSale",
+            data: { SaleId: SaleId }
+        })
+        .done(function (data) { location.reload(); })
+        .fail(function () { alert("error"); });
+    }
+</script>

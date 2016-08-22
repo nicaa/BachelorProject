@@ -1,0 +1,58 @@
+﻿@model CreateDealerModel
+@using Garia.Models
+@using Garia.Core.Entities
+
+@{
+    ViewBag.Title = "CreateDealer";
+}
+
+<h2>Create Dealer</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dealer.DealerName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Dealer.DealerName)
+                @Html.ValidationMessageFor(model => model.Dealer.DealerName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dealer.Budget, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Dealer.Budget)
+                @Html.ValidationMessageFor(model => model.Dealer.Budget)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dealer.RegionId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div>
+                    <select class="form-control" name="RegionId" id="RegionId">
+                        @foreach (Region region in Model.Regions)
+                        {
+                            <option value="@region.RegionId">@region.RegionName</option>
+                        }
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+

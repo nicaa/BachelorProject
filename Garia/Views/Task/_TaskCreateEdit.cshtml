@@ -1,0 +1,56 @@
+﻿@model TaskCreateEditModel
+@using Garia.Models
+@using Garia.Core.Entities
+
+@using (Html.BeginForm())
+{
+
+    @Html.HiddenFor(model => model.Task.TaskId)
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading TaskTabHead">
+                <div class="">
+                        @Html.EditorFor(model => model.Task.Title)
+                        @Html.ValidationMessageFor(model => model.Task.Title)
+                </div>
+            </div>
+            <div class="panel-body TaskTabInfo">
+                    <div class="" style="margin-left: 20px;">
+                        <select class="form-control form-group-attached" required name="EmployeeId" id="select">
+                            <option selected disabled value="">Choose Employee</option>
+                            @foreach (Employee emp in Model.EmployeeList)
+                            {
+                                <option value="@emp.EmployeeId">@emp.Fname @emp.Lname</option>
+                            }
+                        </select>
+                        <br />
+                        <select class="form-control form-group-attached" required name="PriorityId" id="select">
+                            <option selected disabled value="">Choose Priority</option>
+                            @foreach (TaskPriority task in Model.prioritiesList)
+                            {
+                                <option value="@task.PriorityId">@task.Level</option>
+                            }
+                        </select>
+                        <br />
+                        <label>Deadline</label>
+                        <br />
+                        @Html.EditorFor(model => model.Task.CompletionDate, new { htmlAttributes = new { @class = "datepicker" } })
+                        <br />
+                        @Html.ValidationMessageFor(model => model.Task.CompletionDate)
+                    </div>
+            </div>
+            <div class="panel-body TaskTabBody">
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.Task.Description, htmlAttributes: new {@placeholder = "Enter Discription here", @rows = 10 })
+                    @Html.ValidationMessageFor(model => model.Task.Description)
+                </div>
+            </div>
+            <div class="panel-body TaskTabFootoer">
+                <div class="">
+                    <input type="submit" value="OK" style="float:left" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Person>
+@using Garia.Core.Entities
+
+
+@if (Model != null)
+      
+{
+
+    foreach (Person p in Model)
+    {
+        <div class="col-md-4">
+            <h2>@p.Fname  @p.Lname</h2>
+        </div>
+    }
+}

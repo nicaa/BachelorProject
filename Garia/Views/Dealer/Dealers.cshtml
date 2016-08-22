@@ -1,0 +1,49 @@
+﻿@model PagedList.IPagedList<DealerRelationship>
+@using PagedList.Mvc;
+@using Garia.Core.Entities
+
+@{
+    ViewBag.Title = "Dealers";
+}
+
+<div class="form-group col-md-10">
+    @Html.ActionLink("Create Dealer Relationship", "CreateDealerRelationship", null, new { @class = "btn btn-primary" })
+</div>
+@using (Ajax.BeginForm("DealersSort", new AjaxOptions
+    {
+
+        HttpMethod = "POST",
+        UpdateTargetId = "DealerSort",
+        OnComplete = "OnComplete"
+
+    }))
+{
+    <div class="form-group" style="margin-top: 20px">
+        <label class="control-label col-md-3">Search By Manager</label>
+
+        <div class="col-md-10">
+            <input type="text" name="SearchString" id="SearchString" />
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+}
+<div id="DealerSort">
+    @Html.Partial("_DealerList", Model)
+</div>
+    <div>
+        @Html.PagedListPager(Model, page => Url.Action("Dealers", new { page, pagesize = Model.PageSize }))
+    </div>
+
+    <script>
+        function DeleteRelationship(Id) {
+            $.ajax({
+                type: "POST",
+                url: "/Dealer/DeleteRelationship",
+                data: { Id: Id }
+            })
+            .done(function (data) { location.reload(); })
+            .fail(function () { alert("error"); });
+        }
+
+    </script>
+

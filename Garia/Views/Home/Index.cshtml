@@ -1,0 +1,343 @@
+﻿@model DashboardModel
+@using Garia.Models
+@using Garia.Core.Entities
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<!-- START WIDGET -->
+<div class="col-md-3 m-b-3">
+    <!--Using "!Important" because of wierd css overwriting -->
+    <div class="widget-9 panel " style="background-color: #0da899; !important">
+        <div class="container-xs-height full-height">
+            <div class="row-xs-height">
+                <div class="col-xs-height col-top">
+                    <div class="panel-heading  top-left top-right">
+                        <div class="panel-title text-black">
+                            <span class="font-montserrat fs-11 all-caps">
+                                My Revenue this month <i class="fa fa-chevron-right"></i>
+                            </span>
+                        </div>
+                        <div class="panel-controls">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-xs-height">
+                <div class="col-xs-height col-top">
+                    <div class="p-l-20 p-t-15">
+                        @{
+                            if (Model.EmployeeRevenueThisMonth != null && Model.EmployeeRevenueThisYear != null)
+                            {
+                                <h3 class="no-margin p-b-5 text-white">$@Model.EmployeeRevenueThisMonth.EmployeeRevenue.ToString("N0")</h3>
+                                <h6 class="no-margin p-b-5 text-white">Budget   $@Model.EmployeeRevenueThisMonth.Budget.ToString("N0")</h6>
+                                <span class=" hint-text text-black">@Model.EmployeeRevenueThisMonth.Procentage% compared to budget</span>
+
+                            }
+                            else
+                            {
+                                <h3 class="no-margin p-b-5 text-white">No sales</h3>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="row-xs-height">
+                <div class="col-xs-height col-bottom">
+                    <div class="progress progress-small m-b-20">
+                        <!-- START BOOTSTRAP PROGRESS -->
+                        @if (Model.EmployeeRevenueThisMonth != null && Model.EmployeeRevenueThisYear != null)
+                        {
+                            <div class="progress-bar progressbarWhiteCustom" data-percentage="@Model.EmployeeRevenueThisMonth.Procentage%"></div>
+                        }
+                        else
+                        {
+                            <div class="progress-bar progressbarWhiteCustom" data-percentage="0"></div>
+
+                        }
+
+                        <!-- END BOOTSTRAP PROGRESS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END WIDGET -->
+<!-- START WIDGET -->
+<div class="col-md-3 m-b-3">
+    <!--Using "!Important" because of wierd css overwriting -->
+    <div class="widget-9 panel " style="background-color: #0da899; !important; ">
+        <div class="container-xs-height full-height">
+            <div class="row-xs-height">
+                <div class="col-xs-height col-top">
+                    <div class="panel-heading  top-left top-right">
+                        <div class="panel-title text-black">
+                            <span class="font-montserrat fs-11 all-caps">
+                                My Revenue this year <i class="fa fa-chevron-right"></i>
+                            </span>
+                        </div>
+                        <div class="panel-controls">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-xs-height">
+                <div class="col-xs-height col-top">
+                    <div class="p-l-20 p-t-15">
+                        @{
+                            if (Model.EmployeeRevenueThisYear != null)
+                            {
+                                <h3 class="no-margin p-b-5 text-white">$@Model.EmployeeRevenueThisYear.EmployeeRevenue.ToString("N0")</h3>
+                                <h6 class="no-margin p-b-5 text-white">Budget   $@Model.EmployeeRevenueThisYear.Budget.ToString("N0")</h6>
+                                <span class=" hint-text text-black">@Model.EmployeeRevenueThisYear.Procentage% compared to budget</span>
+
+                            }
+                            else
+                            {
+                                <h3 class="no-margin p-b-5 text-white">No sales</h3>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="row-xs-height">
+                <div class="col-xs-height col-bottom">
+                    <div class="progress progress-small m-b-20">
+                        <!-- START BOOTSTRAP PROGRESS -->
+                        @if (Model.EmployeeRevenueThisYear != null)
+                        {
+                            <div class="progress-bar progressbarWhiteCustom" data-percentage="@Model.EmployeeRevenueThisYear.Procentage%"></div>
+                        }
+                        else
+                        {
+                            <div class="progress-bar progressbarWhiteCustom" data-percentage="0"></div>
+                        
+                        }
+
+                        <!-- END BOOTSTRAP PROGRESS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END WIDGET -->
+<!-- START WIDGET -->
+<div class="col-md-3 m-b-3">
+    <div class="widget-9 panel " style="background-color: #0090d9; !important">
+        <div class="container-xs-height full-height">
+            <div class="row-xs-height">
+                <div class="col-xs-height col-top">
+                    <div class="panel-heading  top-left top-right">
+                        <div class="panel-title text-black">
+                            <span class="font-montserrat fs-11 all-caps">
+                                Total Revenue this month <i class="fa fa-chevron-right"></i>
+                            </span>
+                        </div>
+                        <div class="panel-controls">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-xs-height">
+                <div class="col-xs-height col-top">
+                    <div class="p-l-20 p-t-15">
+                        <h3 class="no-margin p-b-5 text-white">$@Model.TotalRevenueThisMonth.EmployeeRevenue.ToString("N0")</h3>
+                        <h6 class="no-margin p-b-5 text-white">Budget   $@Model.TotalRevenueThisMonth.Budget.ToString("N0")</h6>
+                        <span class=" hint-text text-black">@Model.TotalRevenueThisMonth.Procentage% compared to budget</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row-xs-height">
+                <div class="col-xs-height col-bottom">
+                    <div class="progress progress-small m-b-20">
+                        <!-- START BOOTSTRAP PROGRESS -->
+                        <div class="progress-bar progressbarWhiteCustom" data-percentage="@Model.TotalRevenueThisMonth.Procentage%"></div>
+                        <!-- END BOOTSTRAP PROGRESS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END WIDGET -->
+<!-- START WIDGET -->
+<div class="col-md-3 m-b-3">
+    <!-- START WIDGET -->
+    <div class="widget-9 panel " style="background-color: #0090d9; !important">
+        <div class="container-xs-height full-height">
+            <div class="row-xs-height">
+                <div class="col-xs-height col-top">
+                    <div class="panel-heading  top-left top-right">
+                        <div class="panel-title text-black">
+                            <span class="font-montserrat fs-11 all-caps">
+                                Total Revenue This year <i class="fa fa-chevron-right"></i>
+                            </span>
+                        </div>
+                        <div class="panel-controls">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-xs-height">
+                <div class="col-xs-height col-top">
+                    <div class="p-l-20 p-t-15">
+                        <h3 class="no-margin p-b-5 text-white">$@Model.TotalRevenueThisYear.EmployeeRevenue.ToString("N0")</h3>
+                        <h6 class="no-margin p-b-5 text-white">Budget   $@Model.TotalRevenueThisYear.Budget.ToString("N0")</h6>
+                        <span class=" hint-text text-black">@Model.TotalRevenueThisYear.Procentage% compared to budget</span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row-xs-height">
+                <div class="col-xs-height col-bottom">
+                    <div class="progress progress-small m-b-20">
+                        <!-- START BOOTSTRAP PROGRESS -->
+                        <div class="progress-bar progressbarWhiteCustom" data-percentage="@Model.TotalRevenueThisYear.Procentage%"></div>
+                        <!-- END BOOTSTRAP PROGRESS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END WIDGET -->
+<!-- START Highscore -->
+<div class="col-md-6 m-b-10">
+    <!-- START WIDGET -->
+    <div class="widget-11-2 panel no-border panel-condensed no-margin widget-loader-circle">
+        <div class="panel-heading top-right">
+            <div class="panel-controls">
+
+            </div>
+        </div>
+        <div class="padding-25">
+            <div class="pull-left">
+                <h2 class="text-success no-margin HighScoreHeadLine">INDEX HIGHSCORES</h2>
+                <p class="no-margin HighScoreUnderLine">(Dealers) This month not included</p>
+            </div>
+            <h3 class="pull-right semi-bold">
+                <sup>
+                    <small class="semi-bold"></small>
+                </sup>
+
+            </h3>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="table-responsive" style="overflow:auto; ">
+            <div class="widget-11-2-table">
+                <table class="table table-hover">
+
+                    @{
+                        int counterDealer = 1;
+                        foreach (IndexModel index in Model.DealerIndex1)
+                        {
+                            <tr>
+                                <td class="font-montserrat all-caps fs-12 col-lg-1">#@counterDealer</td>
+                                <td class="font-montserrat all-caps fs-12 col-lg-3">@index.Fname</td>
+                                <td class="font-montserrat all-caps fs-12 col-lg-3"></td>
+                                <td class=" b-r b-dashed b-grey col-lg-2">
+                                    <span class="hint-text small">$@index.Revenue</span>
+                                </td>
+                                <td class="col-lg-3">
+                                    @if (@index.Index > 0)
+                                    {
+                                        <span class="font-montserrat fs-18">@String.Format("{0:0.0}", index.Index) </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="font-montserrat fs-18">No Index</span>
+                                    }
+                                </td>
+                            </tr>
+                                    counterDealer++;
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!-- END WIDGET -->
+</div>
+<!-- START Highscore -->
+<!-- START Highscore -->
+<div class="col-md-6 m-b-10">
+    <!-- START WIDGET -->
+    <div class="widget-11-2 panel no-border panel-condensed no-margin widget-loader-circle">
+        <div class="panel-heading top-right">
+            <div class="panel-controls">
+
+            </div>
+        </div>
+        <div class="padding-25">
+            <div class="pull-left">
+                <h2 class="text-success no-margin HighScoreHeadLine">INDEX HIGHSCORES</h2>
+                <p class="no-margin HighScoreUnderLine">(Sales Manager) This month not included</p>
+            </div>
+            <h3 class="pull-right semi-bold">
+                <sup>
+                    <small class="semi-bold"></small>
+                </sup>
+
+            </h3>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="table-responsive" style="overflow:auto; ">
+            <div class="widget-11-2-table">
+                <table class="table table-hover">
+
+                    @{
+                        int counter = 1;
+                        foreach (IndexModel index in Model.EmployeeIndex1)
+                        {
+                            <tr>
+                                <td class="font-montserrat all-caps fs-12 col-lg-1">#@counter</td>
+                                <td class="font-montserrat all-caps fs-12 col-lg-3">@index.Fname @index.Lname</td>
+                                <td class="font-montserrat all-caps fs-12 col-lg-3"></td>
+                                <td class=" b-r b-dashed b-grey col-lg-2">
+                                    <span class="hint-text small">$@index.Revenue</span>
+                                </td>
+                                <td class="col-lg-3">
+                                    @if (@index.Index > 0)
+                                    {
+                                        <span class="font-montserrat fs-18">@String.Format("{0:0.0}", index.Index) </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="font-montserrat fs-18">No Index</span>
+                                    }
+                                </td>
+                            </tr>
+                                    counter++;
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!-- END WIDGET -->
+</div>
+<!-- START Highscore -->
+<!-- Start NVD3 Graph-->
+<div class="col-md-12" style=" margin-top:20px;">
+    <center>
+        <p class="font-montserrat fs-16 all-caps">
+            Total Revenue by month
+        </p>
+    </center>
+    <div id="chart" style="height:400px">
+        <svg></svg>
+    </div>
+
+</div>
+
+
+<!-- End NVD3 Graph-->
